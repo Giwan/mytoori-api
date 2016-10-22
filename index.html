@@ -23,7 +23,7 @@
     
       <script>
         $(function() {
-            setupLanguages(["MeteorJS","bash"]);
+            setupLanguages(["objectivec","bash"]);
         });
       </script>
     
@@ -41,7 +41,7 @@
       
         <div class="lang-selector">
           
-              <a href="#" data-language-name="MeteorJS">MeteorJS</a>
+              <a href="#" data-language-name="objectivec">objectivec</a>
           
               <a href="#" data-language-name="bash">bash</a>
           
@@ -66,79 +66,34 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Welcome to the Mytoori API! You can use our API to access Mytoori API endpoints, which can get information on published and featured bilingual books.</p>
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-<h1 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h1><blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre><code class="highlight ruby"><div class="line"><span class="keyword">require</span> <span class="string">'kittn'</span></div><div class="line"></div><div class="line">api = Kittn::APIClient.authorize!(<span class="string">'meowmeowmeow'</span>)</div></code></pre>
-<pre><code class="highlight python"><div class="line"><span class="keyword">import</span> kittn</div><div class="line"></div><div class="line">api = kittn.authorize(<span class="string">'meowmeowmeow'</span>)</div></code></pre>
-<pre><code class="highlight bash"><div class="line"><span class="comment"># With shell, you can just pass the correct header with each request</span></div><div class="line">curl <span class="string">"api_endpoint_here"</span></div><div class="line">  -H <span class="string">"Authorization: meowmeowmeow"</span></div></code></pre>
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Welcome to the Mytoori API! You can use our API to access Mytoori, which can get information on published and featured bilingual books.</p>
+<p>Suppported languages are Objective-C and Bash. Code examples are in the dark area to the right. Switch the programming language of the examples with the tabs in the top right.</p>
+<h1 id="Featured"><a href="#Featured" class="headerlink" title="Featured"></a>Featured</h1><p>The featured section shows a list of books featured on the front-page. These are listed based on their publication date.</p>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Get a list of featured books, stories and poems</p>
 </blockquote>
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers" target="_blank" rel="external">developer portal</a>.</p>
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-<p><code>Authorization: meowmeowmeow</code></p>
-<aside class="notice"><br>You must replace <code>meowmeowmeow</code> with your personal API key.<br></aside>
-
-<h1 id="Kittens"><a href="#Kittens" class="headerlink" title="Kittens"></a>Kittens</h1><h2 id="Get-All-Kittens"><a href="#Get-All-Kittens" class="headerlink" title="Get All Kittens"></a>Get All Kittens</h2><pre><code class="highlight ruby"><div class="line"><span class="keyword">require</span> <span class="string">'kittn'</span></div><div class="line"></div><div class="line">api = Kittn::APIClient.authorize!(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get</div></code></pre>
-<pre><code class="highlight python"><div class="line"><span class="keyword">import</span> kittn</div><div class="line"></div><div class="line">api = kittn.authorize(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get()</div></code></pre>
-<pre><code class="highlight bash"><div class="line">curl <span class="string">"http://example.com/api/kittens"</span></div><div class="line">  -H <span class="string">"Authorization: meowmeowmeow"</span></div></code></pre>
+<pre><code class="highlight objectivec"><div class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> urlWithString:<span class="string">@"http://app.mytoori.com/api/0.1/collection/featured"</span>];</div><div class="line"></div><div class="line"><span class="comment">/* use the url object to create a data object */</span></div><div class="line"><span class="built_in">NSData</span> *data = [<span class="built_in">NSData</span> dataWithContentsFromURL:url];</div><div class="line"></div><div class="line"><span class="comment">/* Use NSJSON to convert data object to JSON object */</span></div><div class="line"></div><div class="line"><span class="built_in">NSArray</span> *results = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:data options:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error2];</div></code></pre>
+<pre><code class="highlight bash"><div class="line">curl <span class="string">"http://app.mytoori.com/api/0.1/collection/featured"</span></div></code></pre>
+<h1 id="Individual-book"><a href="#Individual-book" class="headerlink" title="Individual book"></a>Individual book</h1><p>Request an individual book based on it’s ISBN. The client app provides an ISBN in the call. In response the details of the requested book are returned in JSON format.</p>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Request book details such as titles and author information.<br>The book data is returned is returned as a JSON object </p>
 </blockquote>
-<pre><code class="highlight json"><div class="line">[</div><div class="line">  &#123;</div><div class="line">    <span class="attr">"id"</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"Fluffums"</span>,</div><div class="line">    <span class="attr">"breed"</span>: <span class="string">"calico"</span>,</div><div class="line">    <span class="attr">"fluffiness"</span>: <span class="number">6</span>,</div><div class="line">    <span class="attr">"cuteness"</span>: <span class="number">7</span></div><div class="line">  &#125;,</div><div class="line">  &#123;</div><div class="line">    <span class="attr">"id"</span>: <span class="number">2</span>,</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"Max"</span>,</div><div class="line">    <span class="attr">"breed"</span>: <span class="string">"unknown"</span>,</div><div class="line">    <span class="attr">"fluffiness"</span>: <span class="number">5</span>,</div><div class="line">    <span class="attr">"cuteness"</span>: <span class="number">10</span></div><div class="line">  &#125;</div><div class="line">]</div></code></pre>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id="HTTP-Request"><a href="#HTTP-Request" class="headerlink" title="HTTP Request"></a>HTTP Request</h3><p><code>GET http://example.com/api/kittens</code></p>
-<h3 id="Query-Parameters"><a href="#Query-Parameters" class="headerlink" title="Query Parameters"></a>Query Parameters</h3><table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody>
-</table>
-<aside class="success"><br>Remember — a happy kitten is an authenticated kitten!<br></aside>
-
-<h2 id="Get-a-Specific-Kitten"><a href="#Get-a-Specific-Kitten" class="headerlink" title="Get a Specific Kitten"></a>Get a Specific Kitten</h2><pre><code class="highlight ruby"><div class="line"><span class="keyword">require</span> <span class="string">'kittn'</span></div><div class="line"></div><div class="line">api = Kittn::APIClient.authorize!(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get(<span class="number">2</span>)</div></code></pre>
-<pre><code class="highlight python"><div class="line"><span class="keyword">import</span> kittn</div><div class="line"></div><div class="line">api = kittn.authorize(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get(<span class="number">2</span>)</div></code></pre>
-<pre><code class="highlight bash"><div class="line">curl <span class="string">"http://example.com/api/kittens/2"</span></div><div class="line">  -H <span class="string">"Authorization: meowmeowmeow"</span></div></code></pre>
+<pre><code class="highlight objectivec"><div class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> urlWithString:<span class="string">@"http://app.mytoori.com/api/0.1/isbn/com.mytoori.book.androcles.nl.en"</span>];</div><div class="line"><span class="comment">/*</span></div><div class="line">Use the url object to create a data object</div><div class="line"> */</div><div class="line"><span class="built_in">NSData</span> *data = [<span class="built_in">NSData</span> dataWithContentsFromURL:url];</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line">Use NSJSON to convert data object to JSON object</div><div class="line"> */</div><div class="line"><span class="built_in">NSArray</span> *results = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:data option:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error2];</div></code></pre>
+<pre><code class="highlight bash"><div class="line">curl http://app.mytoori.com/api/0.1/isbn/com.mytoori.book.androcles.nl.en</div></code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>The JSON response looks like this</p>
 </blockquote>
-<pre><code class="highlight json"><div class="line">&#123;</div><div class="line">  <span class="attr">"id"</span>: <span class="number">2</span>,</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"Max"</span>,</div><div class="line">  <span class="attr">"breed"</span>: <span class="string">"unknown"</span>,</div><div class="line">  <span class="attr">"fluffiness"</span>: <span class="number">5</span>,</div><div class="line">  <span class="attr">"cuteness"</span>: <span class="number">10</span></div><div class="line">&#125;</div></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
-<aside class="warning">If you’re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
-
-<h3 id="HTTP-Request-1"><a href="#HTTP-Request-1" class="headerlink" title="HTTP Request"></a>HTTP Request</h3><p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id="URL-Parameters"><a href="#URL-Parameters" class="headerlink" title="URL Parameters"></a>URL Parameters</h3><table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody>
-</table>
+<pre><code class="highlight json"><div class="line">&#123;</div><div class="line">	<span class="attr">"_id"</span>: <span class="string">"nttz3ibX9sSYJAdPR"</span>,</div><div class="line">	<span class="attr">"author"</span>: <span class="string">"An Aesop's Fable"</span>,</div><div class="line">	<span class="attr">"title1"</span>: <span class="string">"Androcles"</span>,</div><div class="line">	<span class="attr">"title2"</span>: <span class="string">"Androcles"</span>,</div><div class="line">	<span class="attr">"description1"</span>: <span class="string">"Androcles and the Lion is one of the worldfamous Aesop's fables, which date back to the 5th Century BC. Fables are short stories which illustrate a particular moral and teach a lesson to children. The theme and characters appeal to children and the stories are often humorous and entertaining for kids of all ages. "</span>,</div><div class="line">	<span class="attr">"description2"</span>: <span class="string">"Androcles en de Leeuw is een van de wereldberoemde fabels van Aesop uit de vijfde eeuw voor Christus. Fabels zijn korte verhaaltjes die een bepaalde moraal hebben en een les leren voor kinderen. Het thema en de karakters zijn aantrekkelijk voor kinderen en de verhaaltjes zijn vaak humoristisch en onderhoudend voor kinderen van alle leeftijden.  "</span>,</div><div class="line">	<span class="attr">"notes1"</span>: <span class="string">"Fluent in English. Native in Dutch"</span>,</div><div class="line">	<span class="attr">"notes2"</span>: <span class="string">"Vloeiend Engels. Moedertaal Nederlands. "</span>,</div><div class="line">	<span class="attr">"language1"</span>: <span class="string">"en"</span>,</div><div class="line">	<span class="attr">"language2"</span>: <span class="string">"nl"</span>,</div><div class="line">	<span class="attr">"userId"</span>: <span class="string">"J4Fb9fSD8WDC7ymLd"</span>,</div><div class="line">	<span class="attr">"cover"</span>: <span class="string">"25626346216"</span>,</div><div class="line">	<span class="attr">"price"</span>: <span class="number">0</span>,</div><div class="line">	<span class="attr">"status"</span>: <span class="string">"published"</span>,</div><div class="line">	<span class="attr">"authorFirstname"</span>: <span class="string">"Aesop's"</span>,</div><div class="line">	<span class="attr">"authorLastname"</span>: <span class="string">"Fable"</span>,</div><div class="line">	<span class="attr">"translatorFirstname"</span>: <span class="string">"Aesop's"</span>,</div><div class="line">	<span class="attr">"translatorLastname"</span>: <span class="string">"Fable"</span>,</div><div class="line">	<span class="attr">"isbn"</span>: <span class="string">"com.mytoori.book.androcles"</span>,</div><div class="line">	<span class="attr">"cover2"</span>: <span class="string">"25652534415"</span></div><div class="line">&#125;</div></code></pre>
+<h1 id="Book-Download"><a href="#Book-Download" class="headerlink" title="Book Download"></a>Book Download</h1><p>Export (download) the contents of an individual book. The request is made with the book’s database ID. The response provides the book values in JSON format.</p>
+<pre><code class="highlight objectivec"><div class="line"><span class="built_in">NSDictionary</span> *bookObject, <span class="built_in">NSError</span> *error;</div><div class="line"></div><div class="line"><span class="built_in">NSURL</span> *url = [TWStaticInfo apiURL];</div><div class="line">url = [url URLByAppendingPathComponent:API_BOOKDATA_JSON];</div><div class="line">url = [url URLByAppendingPathComponent:bookId];</div><div class="line"></div><div class="line"><span class="built_in">NSData</span> *bookData = [<span class="built_in">NSData</span> dataWithContentsOfURL:url options:kNilOptions error:&amp;error];</div><div class="line"></div><div class="line"><span class="keyword">if</span> (bookData) bookObject = [<span class="built_in">NSData</span> dataWithContentsOfURL:url options:kNilOptions error:&amp;error];</div></code></pre>
+<pre><code class="highlight bash"><div class="line"></div><div class="line">curl http://app.mytoori.com/api/0.1/story_json_<span class="built_in">export</span>/nttz3ibX9sSYJAdPR</div></code></pre>
+<pre><code class="highlight json"><div class="line">&#123;</div><div class="line">	<span class="attr">"_id"</span>: <span class="string">"nttz3ibX9sSYJAdPR"</span>,</div><div class="line">	<span class="attr">"author"</span>: <span class="string">"An Aesop's Fable"</span>,</div><div class="line">	<span class="attr">"title1"</span>: <span class="string">"Androcles"</span>,</div><div class="line">	<span class="attr">"title2"</span>: <span class="string">"Androcles"</span>,</div><div class="line">	<span class="attr">"description1"</span>: <span class="string">"Androcles and the Lion is one of the worldfamous Aesop's fables, which date back to the 5th Century BC. Fables are short stories which illustrate a particular moral and teach a lesson to children. The theme and characters appeal to children and the stories are often humorous and entertaining for kids of all ages. "</span>,</div><div class="line">	<span class="attr">"description2"</span>: <span class="string">"Androcles en de Leeuw is een van de wereldberoemde fabels van Aesop uit de vijfde eeuw voor Christus. Fabels zijn korte verhaaltjes die een bepaalde moraal hebben en een les leren voor kinderen. Het thema en de karakters zijn aantrekkelijk voor kinderen en de verhaaltjes zijn vaak humoristisch en onderhoudend voor kinderen van alle leeftijden.  "</span>,</div><div class="line">	<span class="attr">"notes1"</span>: <span class="string">"Fluent in English. Native in Dutch"</span>,</div><div class="line">	<span class="attr">"notes2"</span>: <span class="string">"Vloeiend Engels. Moedertaal Nederlands. "</span>,</div><div class="line">	<span class="attr">"language1"</span>: <span class="string">"en"</span>,</div><div class="line">	<span class="attr">"language2"</span>: <span class="string">"nl"</span>,</div><div class="line">	<span class="attr">"userId"</span>: <span class="string">"J4Fb9fSD8WDC7ymLd"</span>,</div><div class="line">	<span class="attr">"cover"</span>: <span class="string">"25626346216"</span>,</div><div class="line">	<span class="attr">"price"</span>: <span class="number">0</span>,</div><div class="line">	<span class="attr">"status"</span>: <span class="string">"published"</span>,</div><div class="line">	<span class="attr">"authorFirstname"</span>: <span class="string">"Aesop's"</span>,</div><div class="line">	<span class="attr">"authorLastname"</span>: <span class="string">"Fable"</span>,</div><div class="line">	<span class="attr">"translatorFirstname"</span>: <span class="string">"Aesop's"</span>,</div><div class="line">	<span class="attr">"translatorLastname"</span>: <span class="string">"Fable"</span>,</div><div class="line">	<span class="attr">"isbn"</span>: <span class="string">"com.mytoori.book.androcles.en.nl"</span>,</div><div class="line">	<span class="attr">"cover2"</span>: <span class="string">"25652534415"</span>,</div><div class="line">	<span class="attr">"chapters"</span>: [&#123;</div><div class="line">		<span class="attr">"_id"</span>: <span class="string">"fa62odK2dM9YTx8he"</span>,</div><div class="line">		<span class="attr">"documentid"</span>: <span class="string">"nttz3ibX9sSYJAdPR"</span>,</div><div class="line">		<span class="attr">"userId"</span>: <span class="string">"J4Fb9fSD8WDC7ymLd"</span>,</div><div class="line">		<span class="attr">"number"</span>: <span class="string">"1"</span>,</div><div class="line">		<span class="attr">"paragraphs"</span>: [&#123;</div><div class="line">			<span class="attr">"_id"</span>: <span class="string">"XS4PoY2znsz7X3oiH"</span>,</div><div class="line">			<span class="attr">"chapterid"</span>: <span class="string">"fa62odK2dM9YTx8he"</span>,</div><div class="line">			<span class="attr">"number"</span>: <span class="string">"0"</span>,</div><div class="line">			<span class="attr">"text1"</span>: <span class="string">"A slave named Androcles once escaped from his master and fled to the forest."</span>,</div><div class="line">			<span class="attr">"text2"</span>: <span class="string">"Er was eens een slaaf met de naam Andocles die van zijn meester ontsnapte en vluchtte naar het bos."</span>,</div><div class="line">			<span class="attr">"userId"</span>: <span class="string">"J4Fb9fSD8WDC7ymLd"</span></div><div class="line">		&#125;, &#123;</div><div class="line">			<span class="attr">"_id"</span>: <span class="string">"K8ErChaNoDZ7622SG"</span>,</div><div class="line">			<span class="attr">"chapterid"</span>: <span class="string">"fa62odK2dM9YTx8he"</span>,</div><div class="line">			<span class="attr">"number"</span>: <span class="string">"1"</span>,</div><div class="line">			<span class="attr">"text1"</span>: <span class="string">"As he was wandering about there he came upon a Lion lying down moaning and groaning."</span>,</div><div class="line">			<span class="attr">"text2"</span>: <span class="string">"Toen hij in het bos aan het rond dwalen was, kwam hij een Leeuw tegen die op de grond lag te kreunen en steunen."</span>,</div><div class="line">			<span class="attr">"userId"</span>: <span class="string">"J4Fb9fSD8WDC7ymLd"</span></div><div class="line">		&#125;, &#123;</div><div class="line">			<span class="attr">"_id"</span>: <span class="string">"vyy3NMLSwff7cACfi"</span>,</div><div class="line">			<span class="attr">"chapterid"</span>: <span class="string">"fa62odK2dM9YTx8he"</span>,</div><div class="line">			<span class="attr">"number"</span>: <span class="string">"2"</span>,</div><div class="line">			<span class="attr">"text1"</span>: <span class="string">"At first he turned to flee, but finding that the Lion did not pursue him, he turned back and went up to him."</span>,</div><div class="line">			<span class="attr">"text2"</span>: <span class="string">"Eerst wilde hij vluchten, maar toen hij merkte dat de Leeuw hem niet achterna kwam, draaide hij om en keerde terug naar de Leeuw."</span>,</div><div class="line">			<span class="attr">"userId"</span>: <span class="string">"J4Fb9fSD8WDC7ymLd"</span></div><div class="line">		&#125;]</div><div class="line">	&#125;]</div><div class="line">&#125;</div></code></pre>
+<h1 id="Purchased"><a href="#Purchased" class="headerlink" title="Purchased"></a>Purchased</h1><h2 id="Purchased-books"><a href="#Purchased-books" class="headerlink" title="Purchased books"></a>Purchased books</h2><p>A list of books based on the user’s purchase receipt. This end-point takes a list of book ID’s extracted from the purchased receipt. Based on these IDs the full details of the purchased books can be accessed.</p>
+<blockquote>
+<p>Takes an array of ID’s and returns a detailed list of Purchased books</p>
+</blockquote>
+<pre><code class="highlight plain"><div class="line">GET http://app.mytoori.com/api/0.1/getBooks</div></code></pre>
+<pre><code class="highlight plain"><div class="line">lals</div></code></pre>
 
         
           
@@ -207,7 +162,7 @@
         
           <div class="lang-selector">
             
-                <a href="#" data-language-name="MeteorJS">MeteorJS</a>
+                <a href="#" data-language-name="objectivec">objectivec</a>
             
                 <a href="#" data-language-name="bash">bash</a>
             
